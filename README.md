@@ -1,2 +1,2 @@
-# nginx-lumen-redis-mysql-dockerize
+# lumen-docker
 Simple dockerized development infra for Lumen development.
