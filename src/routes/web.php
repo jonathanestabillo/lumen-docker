@@ -22,17 +22,18 @@ $router->get('testdatabase', function () use ($router) {
             return "Yes! Successfully connected to the DB: " . DB::connection()->getDatabaseName();
         }
     } catch (\Exception $e) {
-        die("Could not connect to the database.  Please check your configuration.");
+        die("Could not connect to the database: " . $e->getMessage());
     }
 });
 
 $router->get('testcache', function () use ($router) {
     try {
-        DB::connection()->getPdo();
-        if(DB::connection()->getDatabaseName()){
-            return "Yes! Successfully connected to the DB: " . DB::connection()->getDatabaseName();
-        }
+        echo 'Setting User key...<br />';
+        app('redis')->set('user', 'Juan Dela Cruz');
+        echo 'User key value: ' . app('redis')->get('user') . '<br />';
+        echo 'Removing User key.';
+        app('redis')->del('user');
     } catch (\Exception $e) {
-        die("Could not connect to the database.  Please check your configuration.");
+        die('Could not connect to the cache: ' . $e->getMessage());
     }
 });
